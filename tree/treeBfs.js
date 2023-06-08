@@ -1,3 +1,5 @@
+//bfs 너비 우선 탐색 (형제노드 먼저)
+
 class Node{
     constructor(value){
         this.value = value;
@@ -56,8 +58,30 @@ class BinarySearchTree{
         }
         return false;
     }
+
+    BFS(){
+        let saveData = [];
+        let queue = [];
+        let curr =this.root;
+
+        queue.push(curr) //가장 최상위 노드 먼저 시작
+
+        while(queue.length){ 
+            //queue를 그냥 사용하지 않는 이유 : 빈 배열은 true값을 가지기 때문에 false값을 가질수 없어서 무한루프에 빠짐
+            curr = queue.shift(); //지우는 동시에 변수에 저장
+            saveData.push(curr);
+            if(curr.left) queue.push(curr.left);
+            if(curr.right) queue.push(curr.right);
+        }
+        return saveData;
+    }
 }
 
 const tree = new BinarySearchTree();
-tree.insert(10)
-tree.insert(5)
+tree.insert(10);
+tree.insert(6);
+tree.insert(15);
+tree.insert(3);
+tree.insert(8);
+tree.insert(20);
+console.log(tree.BFS())
